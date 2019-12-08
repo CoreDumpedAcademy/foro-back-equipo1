@@ -1,0 +1,33 @@
+{
+  "name": "foro-back-equipo1",
+  "version": "1.0.0",
+  "description": "Repositorio de back para el reto de foro de Equipo de Hackathon G2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackatonTeam-CoreDumped/foro-back-equipo1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HackatonTeam-CoreDumped/foro-back-equipo1/issues"
+  },
+  "homepage": "https://github.com/HackatonTeam-CoreDumped/foro-back-equipo1#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.14",
+    "nodemon": "^2.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}

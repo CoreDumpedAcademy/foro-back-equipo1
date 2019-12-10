@@ -25,20 +25,19 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  UserSchema.find({ userName: req.body.userName }, (err, Userlogin) => {
+  UserSchema.findOne({ userName: req.body.userName }, (err, Userlogin) => {
     // Handle errors
-    if (Userlogin.length === 0) return res.status(404).send({ message: 'No user applied' });
     if (err) return res.status(500).send({ message: 'No user searched', err });
 
     // eslint-disable-next-line prefer-arrow-callback
-    bcrypt.compare(req.body.password, Userlogin[0].password, function (err1, ok) {
+    bcrypt.compare(req.body.password, Userlogin.password, function (err1, ok) {
       if (err1) return res.status(500).send({ message: 'Error Wrong Password', err1 });
       // Equal
       if (ok) {
         const payload = {
-          name: Userlogin[0].userName,
-          mail: Userlogin[0].mail,
-          password: Userlogin[0].password,
+          name: Userlogin.userName,
+          mail: Userlogin.mail,
+          password: Userlogin.password,
         };
         return sign(payload);
       }

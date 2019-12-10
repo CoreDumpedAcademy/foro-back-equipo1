@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+require('./config/config');
+
 const mongoose = require('mongoose');
 const app = require('./app');
 

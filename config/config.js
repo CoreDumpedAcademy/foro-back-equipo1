@@ -1,7 +1,7 @@
 // Puerto
-process.env.PORT = process.env.PORT || 8080;
+process.env.PORT = 3000;
 // mongoDB
-process.env.MONGODB = process.env.MONGODB || 'mongodb://localhost:27017/forodb';
+process.env.MONGODB = 'mongodb://localhost:27017/forodb';
 // Caducidad
 process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
 // KEY

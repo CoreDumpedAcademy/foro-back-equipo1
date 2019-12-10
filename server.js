@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const mongoose = require('mongoose');
 const app = require('./app');
+require('./config/config');
 
 mongoose.set('useCreateIndex', true);
 

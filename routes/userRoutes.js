@@ -8,7 +8,7 @@ const route = express.Router();
 route.post('/register', register);
 route.post('/login', login);
 
-// Validate token
-route.post('/tokenValidation', validate, (req, res) => res.status(200).send({ message: req.body.decodedToken }));
+// ROUTE VALIDATE TOKEN
+route.post('/tokenValidation', validate, (req, res) => res.status(200)/* .send({ message: req.body.decodedToken }) */);
 
 module.exports = route;

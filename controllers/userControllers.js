@@ -38,7 +38,6 @@ const login = (req, res) => {
         const payload = {
           name: Userlogin[0].userName,
           mail: Userlogin[0].mail,
-          password: Userlogin[0].password,
         };
         return sign(payload);
       }

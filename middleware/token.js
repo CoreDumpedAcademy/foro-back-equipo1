@@ -8,7 +8,7 @@ const sign = (payload) => {
   // eslint-disable-next-line max-len
   jwt.sign(payload, process.env.SECRET_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN }, (token, err) => {
     if (err) return console.log(err);
-    return console.log(token);
+    return console.log(`${token}\n`);
   });
 };
 

@@ -9,6 +9,15 @@ const create = (req, res) => {
   });
 };
 
+const getAll = (req, res) => {
+  PostSchema.find({}, (err, users) => {
+    if (err) { return res.status(500).send({ message: 'Error', err }); }
+
+    return res.status(200).send(users);
+  });
+};
+
 module.exports = {
   create,
+  getAll,
 };

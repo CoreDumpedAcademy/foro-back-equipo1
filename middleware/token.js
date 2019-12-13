@@ -2,6 +2,7 @@
 require('../config/config');
 
 const jwt = require('jsonwebtoken');
+require('../config/config');
 
 // generate token
 const sign = (payload) => {

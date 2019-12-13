@@ -1,5 +1,3 @@
-// Puerto
-process.env.PORT = 3000;
 // mongoDB
 process.env.MONGODB = 'mongodb://localhost:27017/forodb';
 // Caducidad

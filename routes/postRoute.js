@@ -4,6 +4,7 @@ const controller = require('../controllers/postControllers');
 const route = express.Router();
 
 route.post('/create', controller.create);
-route.get('/get', controller.getAll);
+route.get('/get', controller.getPosts);
+route.post('/search', controller.getPostByUserName);
 
 module.exports = route;

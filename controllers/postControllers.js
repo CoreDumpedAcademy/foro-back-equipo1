@@ -22,7 +22,24 @@ const getPosts = (req, res) => {
   }).sort({ date: -1 }).limit(limitN).skip(skip);
 };
 
+const getPostByUserName = (req, res) => {
+  const { userName } = req.body;
+  let usersLC = [];
+
+  PostSchema.find({ }, (err, users) => {
+    if (err) { return res.status(500).send({ message: 'Error', err }); }
+
+    for (let i = 0; i < users.length; i += 1) {
+      if (users[i].userName.toLowerCase().includes(userName.toLowerCase())) {
+        usersLC.push(users.userName);
+      }
+    }
+    return res.status(200).send(usersLC);
+  });
+};
+
 module.exports = {
   create,
   getPosts,
+  getPostByUserName,
 };

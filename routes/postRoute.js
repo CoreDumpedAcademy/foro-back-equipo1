@@ -5,6 +5,7 @@ const route = express.Router();
 
 route.post('/create', controller.create);
 route.get('/get', controller.getPosts);
-route.post('/search', controller.getPostByUserName);
+route.post('/searchByUsername', controller.getPostByUserName);
+route.post('/searchByHeader', controller.getPostByHeader);
 
 module.exports = route;

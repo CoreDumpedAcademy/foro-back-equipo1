@@ -15,26 +15,36 @@ const getPosts = (req, res) => {
   const skip = limitN * (page - 1);
   limitN *= page;
 
-  PostSchema.find({}, (err, users) => {
+  PostSchema.find({}, (err, posts) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
 
-    return res.status(200).send(users);
+    return res.status(200).send(posts);
   }).sort({ date: -1 }).limit(limitN).skip(skip);
 };
 
 const getPostByUserName = (req, res) => {
   const { userName } = req.body;
-  let usersLC = [];
+  let userNameLC = [];
 
-  PostSchema.find({ }, (err, users) => {
+  PostSchema.find({ }, (err, posts) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
 
-    for (let i = 0; i < users.length; i += 1) {
-      if (users[i].userName.toLowerCase().includes(userName.toLowerCase())) {
-        usersLC.push(users.userName);
+    for (let i = 0; i < posts.length; i += 1) {
+      if (posts[i].userName.toLowerCase().includes(userName.toLowerCase())) {
+        userNameLC.push(posts.userName);
       }
     }
-    return res.status(200).send(usersLC);
+    return res.status(200).send(userNameLC);
+  });
+};
+
+const getPostByHeader = (req, res) => {
+  const { header } = req.body;
+
+  PostSchema.find({ header: { $regex: header } }, (err, posts) => {
+    if (err) { return res.status(500).send({ message: 'Error', err }); }
+
+    return res.status(200).send(posts);
   });
 };
 
@@ -42,4 +52,5 @@ module.exports = {
   create,
   getPosts,
   getPostByUserName,
+  getPostByHeader,
 };

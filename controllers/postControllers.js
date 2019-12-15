@@ -24,24 +24,18 @@ const getPosts = (req, res) => {
 
 const getPostByUserName = (req, res) => {
   const { userName } = req.body;
-  let userNameLC = [];
 
-  PostSchema.find({ }, (err, posts) => {
+  PostSchema.find({ userName: new RegExp(`^${userName}$`, 'i') }, (err, posts) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
 
-    for (let i = 0; i < posts.length; i += 1) {
-      if (posts[i].userName.toLowerCase().includes(userName.toLowerCase())) {
-        userNameLC.push(posts.userName);
-      }
-    }
-    return res.status(200).send(userNameLC);
+    return res.status(200).send(posts);
   });
 };
 
 const getPostByHeader = (req, res) => {
   const { header } = req.body;
 
-  PostSchema.find({ header: { $regex: header } }, (err, posts) => {
+  PostSchema.find({ header: new RegExp(header, 'i') }, (err, posts) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
 
     return res.status(200).send(posts);

@@ -1,9 +1,10 @@
+/* eslint-disable consistent-return */
 const PostSchema = require('../models/post');
 const ResponseSchema = require('../models/response');
 
 const createResponse = (req, res) => {
   // eslint-disable-next-line max-len
-  PostSchema.findOne({ userName: req.body.userName, date: req.body.date, header: req.body.title }, (err, post) => {
+  PostSchema.findOne({ userName: req.body.userName, date: req.body.date, header: req.body.header }, (err, post) => {
     if (err) return res.status(404).send({ messsage: 'Post doen\'t exist', err });
 
     // eslint-disable-next-line no-underscore-dangle

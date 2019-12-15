@@ -1,5 +1,5 @@
 const PostSchema = require('../models/post');
-// const responsePost = require('../models/post');
+const responsePost = require('../models/response');
 
 const create = (req, res) => {
   const post = new PostSchema({
@@ -29,8 +29,28 @@ const deletePost = (req, res) => {
   });
 };
 
+const sendPostAndRes = (req, res) => {
+  const postAndRes = [];
+  // eslint-disable-next-line max-len
+  PostSchema.findOne({ userName: req.body.userName, date: req.body.date, header: req.body.header }, (err, post) => {
+    if (err) return res.status(404).send({ message: 'No post found', err });
+    postAndRes.push(post);
+
+    console.log(postAndRes);
+
+    // eslint-disable-next-line no-underscore-dangle
+    responsePost.find({ idPost: post._id }, (err1, resPost) => {
+      if (err1) return res.status(404).send({ message: 'No post found', err1 });
+      postAndRes.push(resPost);
+      console.log(postAndRes);
+      return res.status(200).send(postAndRes);
+    });
+  });
+};
+
 module.exports = {
   create,
   getAll,
   deletePost,
+  sendPostAndRes,
 };

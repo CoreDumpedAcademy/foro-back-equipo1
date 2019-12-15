@@ -17,6 +17,7 @@ const getPosts = (req, res) => {
 
   PostSchema.find({}, (err, posts) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
+    if (posts.length === 0) { return res.status(404).send({ message: 'Post does not exist', err }); }
 
     return res.status(200).send(posts);
   }).sort({ date: -1 }).limit(limitN).skip(skip);
@@ -27,6 +28,7 @@ const getPostByUserName = (req, res) => {
 
   PostSchema.find({ userName: new RegExp(`^${userName}$`, 'i') }, (err, posts) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
+    if (posts.length === 0) { return res.status(404).send({ message: 'Post does not exist', err }); }
 
     return res.status(200).send(posts);
   });
@@ -35,8 +37,9 @@ const getPostByUserName = (req, res) => {
 const getPostByHeader = (req, res) => {
   const { header } = req.body;
 
-  PostSchema.find({ header: new RegExp(header, 'i') }, (err, posts) => {
+  PostSchema.find({ header: new RegExp(`^${header}`, 'i') }, (err, posts) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
+    if (posts.length === 0) { return res.status(404).send({ message: 'Post does not exist', err }); }
 
     return res.status(200).send(posts);
   });

@@ -8,8 +8,6 @@ const createMsg = (req, res) => {
     reciever: req.body.receiver,
   });
 
-  if (!newMsg.reciever) { return res.status(400).send({ message: 'Must specify a reciever' }); }
-
   newMsg.save((err) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }
     return res.status(200).send({ message: 'Message successfully sent' });

@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 const messageSchema = new Schema({
   message: { type: String, required: [true, 'Cannot send an empty message'], maxlength: 2000 },
   date: { type: Date, default: Date.now() },
-  author: { type: String },
-  reciever: { type: String },
+  author: { type: String, required: [true, 'Author is required'] },
+  reciever: { type: String, required: [true, 'Must specify a reciever'] },
 });
 
 module.exports = mongoose.model('messageModelHackathonTeam', messageSchema);

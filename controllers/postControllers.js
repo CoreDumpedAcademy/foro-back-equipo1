@@ -1,7 +1,11 @@
 const PostSchema = require('../models/post');
 
 const create = (req, res) => {
-  const post = new PostSchema(req.body);
+  const post = new PostSchema({
+    header: req.body.header,
+    bodyText: req.body.bodyText,
+    userName: req.body.userName,
+  });
 
   post.save((err) => {
     if (err) { return res.status(500).send({ message: 'Error', err }); }

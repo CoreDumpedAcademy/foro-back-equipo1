@@ -3,7 +3,6 @@ require('./config/config');
 
 const mongoose = require('mongoose');
 const app = require('./app');
-require('./config/config');
 
 mongoose.set('useCreateIndex', true);
 

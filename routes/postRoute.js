@@ -7,5 +7,7 @@ route.post('/create', controller.create);
 route.get('/get', controller.getPosts);
 route.post('/searchByUsername', controller.getPostByUserName);
 route.post('/searchByHeader', controller.getPostByHeader);
+route.delete('/delete', controller.deletePost);
+route.get('/postAndRes', controller.sendPostAndRes);
 
 module.exports = route;

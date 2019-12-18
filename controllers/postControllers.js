@@ -14,11 +14,39 @@ const create = (req, res) => {
   });
 };
 
-const getAll = (req, res) => {
-  PostSchema.find({}, (err, users) => {
-    if (err) { return res.status(500).send({ message: 'Error', err }); }
+const getPosts = (req, res) => {
+  const page = Number(req.body.page);
+  let limitN = 10;
+  const skip = limitN * (page - 1);
+  limitN *= page;
 
-    return res.status(200).send(users);
+  PostSchema.find({}, (err, posts) => {
+    if (err) { return res.status(500).send({ message: 'Error', err }); }
+    if (posts.length === 0) { return res.status(404).send({ message: 'Post does not exist', err }); }
+
+    return res.status(200).send(posts);
+  }).sort({ date: -1 }).limit(limitN).skip(skip);
+};
+
+const getPostByUserName = (req, res) => {
+  const { userName } = req.body;
+
+  PostSchema.find({ userName: new RegExp(`^${userName}$`, 'i') }, (err, posts) => {
+    if (err) { return res.status(500).send({ message: 'Error', err }); }
+    if (posts.length === 0) { return res.status(404).send({ message: 'Post does not exist', err }); }
+
+    return res.status(200).send(posts);
+  });
+};
+
+const getPostByHeader = (req, res) => {
+  const { header } = req.body;
+
+  PostSchema.find({ header: new RegExp(`^${header}`, 'i') }, (err, posts) => {
+    if (err) { return res.status(500).send({ message: 'Error', err }); }
+    if (posts.length === 0) { return res.status(404).send({ message: 'Post does not exist', err }); }
+
+    return res.status(200).send(posts);
   });
 };
 
@@ -50,7 +78,7 @@ const sendPostAndRes = (req, res) => {
 
 module.exports = {
   create,
-  getAll,
-  deletePost,
-  sendPostAndRes,
+  getPosts,
+  getPostByUserName,
+  getPostByHeader,
 };

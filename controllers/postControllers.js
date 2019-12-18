@@ -81,4 +81,6 @@ module.exports = {
   getPosts,
   getPostByUserName,
   getPostByHeader,
+  deletePost,
+  sendPostAndRes,
 };

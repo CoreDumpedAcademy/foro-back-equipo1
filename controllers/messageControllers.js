@@ -25,7 +25,7 @@ const getSentMsg = (req, res) => {
   }).sort({ date: -1 });
 };
 
-const getRecievedMsg = (req, res) => {
+const getReceivedMsg = (req, res) => {
   const authorG = req.body.author;
   const recieverG = req.body.reciever;
 
@@ -38,6 +38,6 @@ const getRecievedMsg = (req, res) => {
 
 module.exports = {
   createMsg,
-  getRecievedMsg,
+  getReceivedMsg,
   getSentMsg,
 };

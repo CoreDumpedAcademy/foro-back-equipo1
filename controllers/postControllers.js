@@ -6,6 +6,7 @@ const create = (req, res) => {
     header: req.body.header,
     bodyText: req.body.bodyText,
     userName: req.body.userName,
+    category: req.body.category,
   });
 
   post.save((err) => {
@@ -76,6 +77,17 @@ const sendPostAndRes = (req, res) => {
   });
 };
 
+const sendCategoryPosts = (req, res) => {
+  const { category } = req.body;
+
+  PostSchema.find({ category: new RegExp(`^${category}$`) }, (err, categoryPosts) => {
+    if (err) { return res.status(500).send({ message: 'Error', err }); }
+    if (categoryPosts.length === 0) { return res.status(404).send({ message: 'No posts for this category', err }); }
+
+    return res.status(200).send(categoryPosts);
+  });
+}
+
 module.exports = {
   create,
   getPosts,
@@ -83,4 +95,5 @@ module.exports = {
   getPostByHeader,
   deletePost,
   sendPostAndRes,
+  sendCategoryPosts,
 };

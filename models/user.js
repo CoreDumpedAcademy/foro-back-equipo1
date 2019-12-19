@@ -5,10 +5,10 @@ const bcrypt = require('bcryptjs');
 const { Schema } = mongoose;
 
 const newRegisterSchema = new Schema({
-  userName: { type: String, unique: true, required: [true, 'User name required'] },
-  mail: { type: String, unique: true, required: [true, 'Mail required'] },
+  username: { type: String, unique: true, required: [true, 'Username required'] },
+  email: { type: String, unique: true, required: [true, 'Mail required'] },
   password: { type: String, required: [true, 'Password required'] },
-  years: { type: Number },
+  birthdate: { type: Date },
   country: { type: String },
   dateOfRegister: { type: Date, default: Date.now() },
 });

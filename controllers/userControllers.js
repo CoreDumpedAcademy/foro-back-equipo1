@@ -5,16 +5,16 @@ const { sign } = require('../middleware/token');
 
 const register = (req, res) => {
   const newRegister = new UserSchema({
-    userName: req.body.userName,
-    mail: req.body.mail,
+    username: req.body.username,
+    email: req.body.email,
     password: req.body.password,
-    years: req.body.years,
+    birhtdate: req.body.birthdate,
     country: req.body.country,
   });
 
   const registerPayload = {
-    userName: req.body.userName,
-    mail: req.body.mail,
+    username: req.body.username,
+    email: req.body.email,
   };
 
   newRegister.save((err) => {
@@ -25,7 +25,7 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  UserSchema.find({ userName: req.body.userName }, (err, Userlogin) => {
+  UserSchema.find({ userName: req.body.username }, (err, Userlogin) => {
     // Handle errors
     if (Userlogin.length === 0) return res.status(404).send({ message: 'No user applied' });
     if (err) return res.status(500).send({ message: 'No user searched', err });
@@ -36,8 +36,8 @@ const login = (req, res) => {
       // Equal
       if (ok) {
         const payload = {
-          name: Userlogin[0].userName,
-          mail: Userlogin[0].mail,
+          name: Userlogin[0].username,
+          mail: Userlogin[0].email,
         };
         return sign(payload);
       }

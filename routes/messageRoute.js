@@ -4,7 +4,7 @@ const messageController = require('../controllers/messageControllers');
 const route = express.Router();
 
 route.post('/sendMsg', messageController.createMsg);
-route.post('/getRecievedMsg', messageController.getRecievedMsg);
-route.post('/getSentMsg', messageController.getSentMsg);
+route.get('/getReceivedMsg:messages', messageController.getReceivedMsg);
+route.get('/getSentMsg:author&receiver', messageController.getSentMsg);
 
 module.exports = route;

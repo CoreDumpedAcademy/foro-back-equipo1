@@ -30,7 +30,7 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  UserSchema.find({ userName: req.body.username }, (err, Userlogin) => {
+  UserSchema.find({ username: req.body.username }, (err, Userlogin) => {
     // Handle errors
     if (Userlogin.length === 0) return res.status(404).send({ message: 'No user applied' });
     if (err) return res.status(500).send({ message: 'No user searched', err });
@@ -40,14 +40,13 @@ const login = (req, res) => {
       if (err1) return res.status(500).send({ message: 'Error Wrong Password', err1 });
       // Equal
       if (ok) {
-        const payload = {
-          name: Userlogin[0].username,
-          mail: Userlogin[0].email,
-        };
-        return sign(payload);
+        const token = jwt.sign({
+          registerPayload
+        }, process.env.SECRET_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN })
+      
+        return res.status(200).json({registerPayload, token})
       }
     });
-    return res.status(200).send({ message: 'You have login' });
   });
 };
 

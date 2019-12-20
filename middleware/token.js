@@ -5,14 +5,15 @@ const jwt = require('jsonwebtoken');
 require('../config/config');
 
 // generate token
+/*
 const sign = (payload) => {
   // eslint-disable-next-line max-len
   jwt.sign(payload, process.env.SECRET_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN }, (token, err) => {
     if (err) return console.log(err);
-    return console.log(`${token}\n`);
+    return res.status(200).json(payload, token)
   });
 };
-
+*/
 // validate token
 const validate = (req, res, next) => {
   // eslint-disable-next-line consistent-return
@@ -24,6 +25,5 @@ const validate = (req, res, next) => {
 };
 
 module.exports = {
-  sign,
-  validate,
+  validate
 };

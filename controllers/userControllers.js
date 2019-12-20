@@ -1,9 +1,11 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 
 const UserSchema = require('../models/user');
 const { sign } = require('../middleware/token');
 
 const register = (req, res) => {
+
   const newRegister = new UserSchema({
     username: req.body.username,
     email: req.body.email,
@@ -19,9 +21,14 @@ const register = (req, res) => {
 
   newRegister.save((err) => {
     if (err) res.status(500).send({ message: 'Error', err });
-    res.status(200).send({ message: 'Done, know you are suscribed' });
-    return sign(registerPayload);
   });
+
+  const token = jwt.sign({
+    registerPayload
+  }, process.env.SECRET_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN })
+
+  return res.status(200).json({registerPayload, token})
+  
 };
 
 const login = (req, res) => {

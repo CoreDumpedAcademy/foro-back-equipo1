@@ -40,6 +40,12 @@ const login = (req, res) => {
       if (err1) return res.status(500).send({ message: 'Error Wrong Password', err1 });
       // Equal
       if (ok) {
+
+        const registerPayload = {
+          username: req.body.username,
+          email: req.body.email,
+        };
+
         const token = jwt.sign({
           registerPayload
         }, process.env.SECRET_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN })
@@ -53,7 +59,7 @@ const login = (req, res) => {
 const allUsers = (req, res) => {
   UserSchema.find({}, (err, users) => {
     if (err) return res.status(500).send({ message: 'Errors in', err });
-    return res.status(200).send(users);
+    return res.status(200).json({username: users});
   });
 };
 

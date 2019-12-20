@@ -21,7 +21,7 @@ const getSentMsg = (req, res) => {
   // Mensajes escritos por el author para el reciever
   Message.find({ author, receiver }, (err, msgA) => {
     if (err) return res.status(500).send({ message: 'Error', err });
-    return res.status(200).send(msgA);
+    return res.status(200).send({ messages: msgA });
   }).sort({ date: -1 });
 };
 
@@ -32,7 +32,7 @@ const getReceivedMsg = (req, res) => {
   // Mensajes escritos por el receiver para el author
   Message.find({ receiver: authorG, author: receiverG }, (error, msgG) => {
     if (error) return res.status(200).send({ message: 'Error', error });
-    return res.status(200).send(msgG);
+    return res.status(200).send({ messages: msgG });
   }).sort({ date: -1 });
 };
 

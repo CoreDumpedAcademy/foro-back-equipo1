@@ -1,11 +1,10 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 const UserSchema = require('../models/user');
 const { sign } = require('../middleware/token');
 
 const register = (req, res) => {
-
   const newRegister = new UserSchema({
     username: req.body.username,
     email: req.body.email,
@@ -24,11 +23,10 @@ const register = (req, res) => {
   });
 
   const token = jwt.sign({
-    registerPayload
-  }, process.env.SECRET_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN })
+    registerPayload,
+  }, process.env.SECRET_TOKEN, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
-  return res.status(200).json({registerPayload, token})
-  
+  return res.status(200).json({ registerPayload, token });
 };
 
 const login = (req, res) => {
@@ -53,7 +51,15 @@ const login = (req, res) => {
   });
 };
 
+const allUsers = (req, res) => {
+  UserSchema.find({}, (err, users) => {
+    if (err) return res.status(500).send({ message: 'Errors in', err });
+    return res.status(200).send(users);
+  });
+};
+
 module.exports = {
   register,
   login,
+  allUsers,
 };
